@@ -1,6 +1,3 @@
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,7 +6,7 @@ import java.io.IOException;
 
 public class Screenshot {
     private final Rect searchArea;
-    private String pathName;
+    private final String pathName;
 
     public Screenshot(Rect searchArea, String pathName) {
         this.searchArea = searchArea;

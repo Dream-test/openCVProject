@@ -4,15 +4,10 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.io.File;
-
 public class ButtonByTemplate {
     private final String template;
     private final Rect searchArea;
-    private String pathName;
+    private final String pathName;
 
     public ButtonByTemplate(Rect searchArea, String template, String pathname) {
         this.searchArea = searchArea;
