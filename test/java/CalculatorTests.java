@@ -32,7 +32,28 @@ public class CalculatorTests {
         click(buttonResult.Center());
         Thread.sleep(500);
         Rect resultField = new ButtonByTemplate(searchArea, templ_result_4, forSumTwoNumbersScreen).getButton();
+    }
 
+    @Test
+    public void sumTwoNumbersWithNegativeAssert() throws Exception {
+        String forSumTwoNumbersScreen = "sumnegative";
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Rect buttonClean = new ButtonByTemplate(searchArea, templ_clean, forSumTwoNumbersScreen).getButton();
+        click(buttonClean.Center());
+        Rect buttonOne = new ButtonByTemplate(searchArea, templ_1, forSumTwoNumbersScreen).getButton();
+        click(buttonOne.Center());
+        Rect buttonPlus = new ButtonByTemplate(searchArea, templ_plus, forSumTwoNumbersScreen).getButton();
+        click(buttonPlus.Center());
+        Rect buttonThree = new ButtonByTemplate(searchArea, templ_2, forSumTwoNumbersScreen).getButton();
+        click(buttonThree.Center());
+        Rect buttonResult = new ButtonByTemplate(searchArea, templ_result, forSumTwoNumbersScreen).getButton();
+        click(buttonResult.Center());
+        Thread.sleep(500);
+        try {
+            Rect resultField = new ButtonByTemplate(searchArea, templ_result_4, forSumTwoNumbersScreen).getButton();
+        } catch (Exception e) {
+            System.out.println("Result is not as expected, result " + e.getMessage());
+        }
     }
 
     private void click(Point p) throws AWTException {
