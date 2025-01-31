@@ -5,6 +5,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class ButtonByTemplate {
+    private final double precision = 0.9991; //This is search precision
     private final String template;
     private final Rect searchArea;
     private final String pathName;
@@ -29,7 +30,7 @@ public class ButtonByTemplate {
         Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
 
         org.opencv.core.Point matchLoc = mmr.maxLoc;
-        if (mmr.maxVal < 0.9991) {
+        if (mmr.maxVal < precision) {
             throw new Exception(template + " Not found! The best result is: " + (mmr.maxVal * 100));
         }
         return new Rect((int) matchLoc.x, (int) matchLoc.y, templ.cols(), templ.rows());

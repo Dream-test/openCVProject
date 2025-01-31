@@ -16,12 +16,13 @@ import static org.opencv.imgproc.Imgproc.rectangle;
 
 public class Main {
     public static Rect searchArea = new Rect(0, 0, 705, 540);
-    public static double precision = 0.9991;
+    public static double precision = 0.9991;  //This is search precision
+
     public static void main(String[] args) throws Exception {
         //click(new Point(150, 225));
         //enter_text("Rect");
         Thread.sleep(3000);
-        Rect rect = find_with_mask("./templateF.png");
+        Rect rect = find_with_mask("./templateF.png", searchArea, precision);
         click(rect.Center());
     }
 
@@ -53,6 +54,7 @@ public class Main {
         }
     }
 
+    //With add search precision and search area
     public static Rect find(String templateFile, int match_method, Rect searchArea, double precision) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
       if (match_method == -1) {
@@ -78,15 +80,16 @@ public class Main {
             matchLoc = mmr.maxLoc;
             best_result = mmr.maxVal;
         }
-        if (best_result < 0.9991) {
+        if (best_result < precision) {
             throw new Exception(templateFile + " Not found! The best result is: " + (mmr.maxVal * 100));
         }
         return new Rect((int) matchLoc.x, (int) matchLoc.y, templ.cols(), templ.rows());
     }
 
-    public static Rect find_with_mask(String templateFile) throws Exception {
+    //With add search precision and search area
+    public static Rect find_with_mask(String templateFile, Rect searchArea, double precision) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        saveScreen(0, 0, 500, 500);
+        saveScreen(searchArea.x, searchArea.y, searchArea.w, searchArea.h);
         Mat img = Imgcodecs.imread("screen.png");
         Mat templ = Imgcodecs.imread(templateFile);
         Mat mask = new Mat(templ.size(), CvType.CV_8UC3, new Scalar(255,255,255));
@@ -100,7 +103,7 @@ public class Main {
         Core.MinMaxLocResult mmr = Core.minMaxLoc(result);
 
         org.opencv.core.Point matchLoc = mmr.maxLoc;
-        if (mmr.maxVal < 0.9991) {
+        if (mmr.maxVal < precision) {
             throw new Exception(templateFile + " Not found! The best result is: " + (mmr.maxVal * 100));
         }
         return new Rect((int) matchLoc.x, (int) matchLoc.y, templ.cols(), templ.rows());

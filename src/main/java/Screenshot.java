@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Screenshot {
     private final Rect searchArea;
-    private final String pathName;
+    private final String pathName; //Part of the capture file name
 
     public Screenshot(Rect searchArea, String pathName) {
         this.searchArea = searchArea;

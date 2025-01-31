@@ -13,8 +13,8 @@ public class CalculatorTests {
     private final String templ_result = "src/main/resources/templ_result.png";
     private final String templ_result_4 = "src/main/resources/templ_result_4.png";
 
-    public static Rect searchArea = new Rect(0, 0, 705, 540);
-    public static double precision = 0.9991;
+    private final Rect searchArea = new Rect(0, 0, 705, 540);
+    private double precision;
 
     @Test
     public void sumTwoNumbers() throws Exception {

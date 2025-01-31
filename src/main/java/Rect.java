@@ -13,6 +13,7 @@ public class Rect {
         this.h = h;
     }
 
+    //Point for click on Rect
     public Point Center() {
         return new Point(this.x + (int) (this.w/2), this.y + (int) (this.h/2));
     }
